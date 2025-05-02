@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AddUser()
 {
@@ -9,8 +11,9 @@ function AddUser()
     const [phone,setPhone]=useState(null);
     const [website,setWebsite]=useState(null);
     const [company,setCompany]=useState(null);
+    const navigate=useNavigate();
 
-    const handleSubmit=(event)=>{
+    const handleSubmit=async(event)=>{
         event.preventDefault();
 
         let body={
@@ -24,7 +27,11 @@ function AddUser()
             }
         }
 
-        console.log(body);
+        
+
+        let response=await axios.post("https://jsonplaceholder.typicode.com/users",body);
+        console.log("Added User",response);
+        navigate("/")
     }
 
     return (
